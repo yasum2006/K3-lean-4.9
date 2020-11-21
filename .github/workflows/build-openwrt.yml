@@ -127,7 +127,7 @@ jobs:
         find -name "*sha256sums*" | xargs -i mv -f {} packages
         find -name "*config.seed*" | xargs -i mv -f {} packages
         find -name "*.manifest*" | xargs -i mv -f {} packages
-        find -name "smartrg*" | xargs -i mv -f {} packages
+        find -name "*smartrg*" | xargs -i mv -f {} packages
         find -name "*netgear*" | xargs -i mv -f {} packages 
         find -name "*linksys*" | xargs -i mv -f {} packages
         find -name "*dlink*" | xargs -i mv -f {} packages

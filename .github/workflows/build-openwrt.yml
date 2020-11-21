@@ -116,6 +116,27 @@ jobs:
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
+            
+    - name: 整理固件文件夹
+      id: organizer
+      run: |
+        mkdir config
+        find openwrt/bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} config
+        cd openwrt/bin/targets/*/*
+        rm -rf packages && mkdir packages
+        find -name "*sha256sums*" | xargs -i mv -f {} packages
+        find -name "*config.seed*" | xargs -i mv -f {} packages
+        find -name "*.manifest*" | xargs -i mv -f {} packages
+        find -name "smartrg*" | xargs -i mv -f {} packages
+        find -name "*netgear*" | xargs -i mv -f {} packages 
+        find -name "*linksys*" | xargs -i mv -f {} packages
+        find -name "*dlink*" | xargs -i mv -f {} packages
+        find -name "*buffalo*" | xargs -i mv -f {} packages       
+        find -name "*asus*" | xargs -i mv -f {} packages
+        find -name "*arris*" | xargs -i mv -f {} packages
+        rm -rf packages
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "::set-output name=status::success"
 
     - name: Upload bin directory
       uses: actions/upload-artifact@main
